@@ -4,16 +4,24 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/ajayr/devops-cicd-eks-pipeline/app/internal/server"
 )
 
 func main() {
-	port := valueOrDefault("PORT", "8080")
-	srv := server.New(server.Config{Port: port})
+	cfg := server.Config{
+		AppName:     valueOrDefault("APP_NAME", "demo-service"),
+		Environment: valueOrDefault("APP_ENV", "dev"),
+		Version:     valueOrDefault("APP_VERSION", "local"),
+		Port:        valueOrDefault("PORT", "8080"),
+		StartedAt:   time.Now().UTC(),
+	}
 
-	log.Printf("starting service on :%s", srv.Port())
-	if err := http.ListenAndServe(":"+srv.Port(), srv.Routes()); err != nil {
+	srv := server.New(cfg)
+
+	log.Printf("starting %s on :%s", cfg.AppName, cfg.Port)
+	if err := http.ListenAndServe(":"+cfg.Port, srv.Routes()); err != nil {
 		log.Fatal(err)
 	}
 }
