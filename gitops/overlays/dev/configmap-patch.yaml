@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-service-config
+data:
+  APP_ENV: dev
+  APP_VERSION: bootstrap
+  LOG_LEVEL: info
+
