@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: demo-platform
+  namespace: argocd
+spec:
+  description: End-to-end CI/CD demo project for Jenkins, EKS, and ArgoCD.
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: demo-dev
+      server: https://kubernetes.default.svc
+    - namespace: demo-prod
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
