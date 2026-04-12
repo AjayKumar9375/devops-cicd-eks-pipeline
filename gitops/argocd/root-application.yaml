@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-platform-root
+  namespace: argocd
+spec:
+  project: demo-platform
+  source:
+    repoURL: https://github.com/your-org/devops-cicd-eks-pipeline.git
+    targetRevision: master
+    path: gitops/argocd/apps-chart
+    helm:
+      parameters:
+        - name: repoURL
+          value: https://github.com/your-org/devops-cicd-eks-pipeline.git
+        - name: targetRevision
+          value: master
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
