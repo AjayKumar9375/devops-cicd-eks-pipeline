@@ -1,0 +1,14 @@
+repoURL: https://github.com/your-org/devops-cicd-eks-pipeline.git
+targetRevision: master
+project: demo-platform
+
+applications:
+  - name: demo-service-dev
+    namespace: demo-dev
+    path: gitops/overlays/dev
+    automated: true
+  - name: demo-service-prod
+    namespace: demo-prod
+    path: gitops/overlays/prod
+    automated: false
+

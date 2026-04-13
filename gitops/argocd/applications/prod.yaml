@@ -1,0 +1,2 @@
+# This file is intentionally left as a reference example.
+# The active ArgoCD app-of-apps source lives in gitops/argocd/apps-chart.
